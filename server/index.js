@@ -1,6 +1,6 @@
-import express  from "express"
+import express from "express";
 import sql from "./db.js";
-import cors from "cors"
+import cors from "cors";
 
 // Step 1: Initial Client Setup
 // Step 2: To Do List Component
@@ -14,60 +14,71 @@ import cors from "cors"
 
 const app = express();
 app.use(
-    cors({
-      origin: ["http://localhost:5173"],
-    })
-  );
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
 
-const data =[
+const data = [
+  {
+    id: "i",
+    task: "take a bath",
+    is_completed: true,
+  },
 
-    {
-        "id":"i",
-        "task":"take a bath",
-        "is_completed":true
-    },
-    
-    {
-        "id":"i",
-        "task":"take a bath",
-        "is_completed":true
-    },
-    
-    {
-        "id":"i",
-        "task":"Eat Breakfast",
-        "is_completed":true
-    },
-    
-    {
-        "id":"i",
-        "task":"go out",
-        "is_completed":true
-    },
-    {
-        "id":"i",
-        "task":"go out",
-        "is_completed":true
-    }
-]
+  {
+    id: "i",
+    task: "take a bath",
+    is_completed: true,
+  },
 
-app.get("/",(req,res) =>
+  {
+    id: "i",
+    task: "Eat Breakfast",
+    is_completed: true,
+  },
 
-{
-res.send("welcome heheh ")
+  {
+    id: "i",
+    task: "go out",
+    is_completed: true,
+  },
+  {
+    id: "i",
+    task: "go out",
+    is_completed: true,
+  },
+];
 
-})
-app.get("/api/todos",(req,res) => 
+app.get("/", (req, res) => {
+  res.send("welcome heheh ");
+});
+app.get("/api/todos", async (req, res) => {
+  const todos = await sql`SELECT * FROM todos`;
+  // res.json(data)
+  if (todos) {
+    res.status(200).send(todos);
+  } else {
+    res.status(404).send("not working");
+  }
+  // res.send(data)
+});
 
-{
-res.json(data)
+app.post("/api/todos2", async (req, res) => {
+  const todos2 = await sql`INSERT INTO todos (task, is_completed) VALUES('eat jelof rice', false)`;
+  // res.json(data)
+//   console.log(todos2);
+  if (todos2) {
+    res.status(201).send("Succesfully connected");
+  } else {
+    res.status(404).send("not working");
+  }
 
-})
+  // res.send(data)
+});
 
-app.listen(3000,() => {
+app.listen(3000, () => {
+  console.log("server runnning on port 300");
+});
 
-    console.log('server runnning on port 300')
-})
-
-
-console.log("sofftdddmmm")
+console.log("sofftdddmmm");
