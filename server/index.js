@@ -18,37 +18,9 @@ app.use(
     origin: ["http://localhost:5173"],
   })
 );
+app.use(express.json())
 
-const data = [
-  {
-    id: "i",
-    task: "take a bath",
-    is_completed: true,
-  },
 
-  {
-    id: "i",
-    task: "take a bath",
-    is_completed: true,
-  },
-
-  {
-    id: "i",
-    task: "Eat Breakfast",
-    is_completed: true,
-  },
-
-  {
-    id: "i",
-    task: "go out",
-    is_completed: true,
-  },
-  {
-    id: "i",
-    task: "go out",
-    is_completed: true,
-  },
-];
 
 app.get("/", (req, res) => {
   res.send("welcome heheh ");
@@ -64,8 +36,13 @@ app.get("/api/todos", async (req, res) => {
   // res.send(data)
 });
 
+
+
 app.post("/api/todos2", async (req, res) => {
-  const todos2 = await sql`INSERT INTO todos (task, is_completed) VALUES('eat jelof rice', false)`;
+    
+    const { task, is_completed } = req.body
+// 'Drink'. => ${task}
+  const todos2 = await sql`INSERT INTO todos (task, is_completed) VALUES ( ${task}, false)`;
   // res.json(data)
 //   console.log(todos2);
   if (todos2) {
@@ -78,7 +55,7 @@ app.post("/api/todos2", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("server runnning on port 300");
+  console.log("server runnning on port 3000");
 });
 
 console.log("sofftdddmmm");
