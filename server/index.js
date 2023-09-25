@@ -10,7 +10,7 @@ import cors from "cors";
 // Step 6: Create a Table and Insert a Data.
 // Step 6: Creata a dummy JSON in the backend that contains todos data
 
-// postgres://username:password@host:port/database
+// postgres://username:password@host:port/database 
 
 const app = express();
 app.use(
@@ -28,11 +28,12 @@ app.get("/", (req, res) => {
 app.get("/api/todos", async (req, res) => {
   const todos = await sql`SELECT * FROM todos`;
   // res.json(data)
-  if (todos) {
+  res.json(todos)
+ /*  if (todos) {
     res.status(200).send(todos);
   } else {
     res.status(404).send("not working");
-  }
+  } */
   // res.send(data)
 });
 
@@ -40,16 +41,17 @@ app.get("/api/todos", async (req, res) => {
 
 app.post("/api/todos2", async (req, res) => {
     
-    const { task, is_completed } = req.body
+    const { task} = req.body
 // 'Drink'. => ${task}
-  const todos2 = await sql`INSERT INTO todos (task, is_completed) VALUES ( ${task}, false)`;
-  // res.json(data)
+  const todos2 = await sql`INSERT INTO todos (task) VALUES ( ${task})`;
+
+  //  res.json(todos2)
 //   console.log(todos2);
   if (todos2) {
     res.status(201).send("Succesfully connected");
   } else {
     res.status(404).send("not working");
-  }
+  } 
 
   // res.send(data)
 });

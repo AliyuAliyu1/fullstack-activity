@@ -1,16 +1,36 @@
-import { useState,useEffect } from 'react'
-
+import { useState} from 'react'
 import './App.css'
+import Listnode from './ListNode/Listnode'
 
 
 
 
 
 function App() {
-  const [ , setTodos]= useState([])
-  useEffect(() => {
+  const [ data1, setTodos]= useState("")
+  const onSubmitForm = async e => {
+    e.preventDefault()
+    try {
+        const body = { task: data1 }
+        const response = await fetch("http://localhost:3000/api/todos2",
+        {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(body)
+        }
+        )
+         const responseText = await response.text();
+        console.log(responseText);
+ 
+        // console.log(response)
+    } catch (err) {
+      console.error(err.message)
+      
+    } 
+  }
+/*   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); */
 
   // useEffect(() => {
   //   // Make a fetch GET request to your API endpoint
@@ -36,13 +56,13 @@ function App() {
   // , []
   // );
 
-
+/* 
   
     const fetchData = async () => {
       try {
         // const body = {data1}
         // Make a fetch GET request to your API endpoint
-        const response = await fetch("http://localhost:3000/api/todos",
+        const response = await fetch("http://localhost:3000/api/todos2",
         {
         method:"GET",
         headers:{"Content-Type":"application/json"},
@@ -64,7 +84,7 @@ function App() {
         console.error('Error fetching data:', error);
       }
     
-    }
+    } */
   
 /*   const addTodo = async() =>{
     try {
@@ -93,8 +113,15 @@ function App() {
     <>
       <div>
       <h1 className='text-green-500 font-semibold text-2xl' > Todo-list </h1>
-      <form  onSubmit={useEffect}>
-        <input type='text' name='task' /> <button type='delete'>add</button></form> 
+      <form  className='d-flex mt-5' onSubmit={onSubmitForm}>
+
+        <input type='text' className='form-control' value={data1} onChange={e => setTodos(e.target.value)}
+        />
+        
+         <button className='btn btn-success'>Add</button>
+
+         </form> 
+         <Listnode/>
       
        
         <ul>
