@@ -1,5 +1,6 @@
 import { todo } from "node:test";
 import React, {Fragment, useEffect,useState} from "react";
+import EditTodo from "../Editodo/EditTodo";
 
 const Listnode = () => {
 
@@ -42,7 +43,7 @@ const Listnode = () => {
       useEffect(() => {
 
         getTodos()
-      },[])
+      }, [])
      
 console.log(todos1)
    return ( <Fragment>
@@ -70,7 +71,9 @@ console.log(todos1)
 
             <tr key= {todo.id}>
             <td>{todo.task}</td>
-            <td>Edit</td>
+            <td>
+                <EditTodo/>
+            </td>
             <td>
                <button className="btn btn-danger" onClick={() => deleteTodo(todo.id)}>
                Delete
