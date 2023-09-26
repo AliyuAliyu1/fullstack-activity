@@ -72,7 +72,7 @@ console.log(todos1)
             <tr key= {todo.id}>
             <td>{todo.task}</td>
             <td>
-                <EditTodo/>
+                <EditTodo todo={todo}/>
             </td>
             <td>
                <button className="btn btn-danger" onClick={() => deleteTodo(todo.id)}>

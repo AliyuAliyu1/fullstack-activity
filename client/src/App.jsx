@@ -8,8 +8,8 @@ import Listnode from './ListNode/Listnode'
 
 function App() {
   const [ data1, setTodos]= useState("")
-  const onSubmitForm = async e => {
-    e.preventDefault()
+  const onSubmitForm = async ( e  ) => {
+     e.preventDefault()
     try {
         const body = { task: data1 }
         const response = await fetch("http://localhost:3000/api/todos2",
@@ -21,8 +21,9 @@ function App() {
         )
          const responseText = await response.text();
         console.log(responseText);
- 
-        // console.log(response)
+         
+        window.location ="/"
+         
     } catch (err) {
       console.error(err.message)
       
@@ -115,7 +116,10 @@ function App() {
       <h1 className='text-green-500 font-semibold text-2xl' > Todo-list </h1>
       <form  className='d-flex mt-5' onSubmit={onSubmitForm}>
 
-        <input type='text' className='form-control' value={data1} onChange={e => setTodos(e.target.value)}
+        <input type='text' className='form-control' value={data1} onChange={e => 
+        
+        setTodos(
+          e.target.value) }
         />
         
          <button className='btn btn-success'>Add</button>

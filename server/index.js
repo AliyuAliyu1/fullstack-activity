@@ -2,7 +2,7 @@ import express from "express";
 import sql from "./db.js";
 import cors from "cors";
 
-// Step 1: Initial Client Setup
+// Step 1: Initial Client  Setup
 // Step 2: To Do List Component
 // Step 3: Initial Sever Setup
 // Step 4: Run the backend server
