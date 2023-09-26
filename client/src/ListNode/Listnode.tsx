@@ -4,6 +4,27 @@ import React, {Fragment, useEffect,useState} from "react";
 const Listnode = () => {
 
     const [todos1,setTodos1] =useState([])
+
+    const deleteTodo = async id => {
+       
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/todos/${id}`,
+            {
+                method:"DELETE"
+            }
+            )
+            
+            
+          setTodos1(todos1.filter(todo => todo.id !== id))
+            
+        } catch (err) {
+            console.error(err.message)
+            
+        }
+    }
+  
+     
     const getTodos = async () => {
        
 
@@ -47,11 +68,11 @@ console.log(todos1)
         </tr> */}
        {todos1.map(todo => (
 
-            <tr>
+            <tr key= {todo.id}>
             <td>{todo.task}</td>
             <td>Edit</td>
             <td>
-               <button className="btn btn-danger">
+               <button className="btn btn-danger" onClick={() => deleteTodo(todo.id)}>
                Delete
                 </button> 
                 </td>
